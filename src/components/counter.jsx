@@ -21,9 +21,24 @@ class Counter extends Component {
     //end to avoid undefined this.state.count in handleIncrement function
   } but BETTER: handleIncrement = () => { */
 
-  render() {
-    console.log("props", this.props); //passing parameters from the other component
+  componentDidUpdate(prevProps, prevState) {
+    //do Ajax calls, save old changes in a history table.
+    console.log("prevProps", prevProps); // prevProps con data anterior
+    console.log("prevState", prevState);
+    if (prevProps.counter.value !== this.props.counter.value) {
+      // Ajax call and get new data from the server
+    }
+  }
 
+  componentWillUnmount() {
+    //before component will be remove from dom, ex: to reset variables, sockets and avoid memory leaks
+    console.log("Constructor - Umount");
+  }
+
+  render() {
+    console.log("Counter - Rendered");
+    // console.log("Counter-props", this.props); //passing parameters from the other component
+    const { counter, onDelete, onIncrement } = this.props; //Destructing Arguments
     return (
       <div>
         {/* <h1>Hello World</h1> */}
@@ -45,13 +60,15 @@ class Counter extends Component {
         </button>
         */}
         <button
-          onClick={() => this.props.onIncrement(this.props.counter)}
+          // onClick={() => this.props.onIncrement(this.props.counter)} //without Destructing Arguments
+          onClick={() => onIncrement(counter)}
           className="btn btn-secondary btn-sm"
         >
           Increment
         </button>
         <button
-          onClick={() => this.props.onDelete(this.props.counter.id)}
+          // onClick={() => this.props.onDelete(this.props.counter.id)} //without Destructing Arguments
+          onClick={() => onDelete(counter.id)}
           className="btn btn-danger btn-sm m-2"
         >
           Delete
@@ -65,7 +82,7 @@ class Counter extends Component {
     //airfunction sintax
     //new to handle events:  = () =>
     //   handleIncrement() { //old
-    this.setState({ value: this.state.value + 1 }); //value x count
+    this.setState({ value: this.state.value + 1 }); //value x count  //Save value and render in DOM (refresh)
     console.log(product);
     console.log("Increment Clicked", this.state.value);
   };*/

@@ -13,6 +13,21 @@ class App extends Component {
     ]
   };
 
+  constructor(props) {
+    super(props);
+    console.log("App - Constructor -> PROPS -> ", this.props);
+    //init setting props vals in costructor
+    //  this.state = this.props.something; //OK!!
+    // this.setState();//ERROR only render in DOM a component.
+    //end setting props vals in costructor
+  }
+
+  componentDidMount() {
+    //after render to the dom
+    console.log("App - Mounted");
+    //Ajax Call and then get data from server this.setStates({movies})
+  }
+
   handleIncrement = counter => {
     // console.log("handleIncrement!! Event Handler Called");
     const counters = [...this.state.counters]; // to clone obj
@@ -21,7 +36,7 @@ class App extends Component {
     counters[index].value++;
     console.log(counter);
     console.log(this.state.counters[0]);
-    this.setState({ counters });
+    this.setState({ counters }); //Save value and render in DOM (refresh)
   };
 
   handleReset = () => {
@@ -30,17 +45,18 @@ class App extends Component {
       c.value = 0;
       return c;
     });
-    this.setState({ counters });
+    this.setState({ counters }); //Save value and render in DOM (refresh)
   };
 
   handleDelete = counterId => {
     // console.log("DELETE Event Handler Called");
     /* return all the values where the id different from counterId*/
     const counters = this.state.counters.filter(c => c.id !== counterId);
-    this.setState({ counters });
+    this.setState({ counters }); //Save value and render in DOM (refresh)
   };
 
   render() {
+    console.log("App - Rendered");
     return (
       <React.Fragment>
         <NavBar
