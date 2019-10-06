@@ -11,6 +11,26 @@ class Counters extends Component {
     ]
   };
 
+  handleIncrement = counter => {
+    // console.log("handleIncrement!! Event Handler Called");
+    const counters = [...this.state.counters]; // to clone obj
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter };
+    counters[index].value++;
+    console.log(counter);
+    console.log(this.state.counters[0]);
+    this.setState({ counters });
+  };
+
+  handleReset = () => {
+    console.log("RESET Event Handler Called");
+    const counters = this.state.counters.map(c => {
+      c.value = 0;
+      return c;
+    });
+    this.setState({ counters });
+  };
+
   handleDelete = counterId => {
     // console.log("DELETE Event Handler Called");
     const counters = this.state.counters.filter(c => c.id !== counterId);
@@ -20,6 +40,13 @@ class Counters extends Component {
   render() {
     return (
       <div>
+        <button
+          onClick={this.handleReset}
+          className="btn btn-primary btn-sm m-2"
+        >
+          Reset
+        </button>
+
         {this.state.counters.map(counter => (
           <Counter
             key={counter.id} //handle by react.
@@ -31,6 +58,7 @@ class Counters extends Component {
             */
             counter={counter}
             onDelete={this.handleDelete}
+            onIncrement={this.handleIncrement}
           />
         ))}
       </div>
