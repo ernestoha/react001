@@ -11,11 +11,27 @@ class Counters extends Component {
     ]
   };
 
+  handleDelete = counterId => {
+    // console.log("DELETE Event Handler Called");
+    const counters = this.state.counters.filter(c => c.id !== counterId);
+    this.setState({ counters });
+  };
+
   render() {
     return (
       <div>
         {this.state.counters.map(counter => (
-          <Counter key={counter.id} value={counter.value} selected={true} />
+          <Counter
+            key={counter.id} //handle by react.
+            /* 
+            id={counter.id}
+            value={counter.value}
+            instead above lines (id... value...)
+            pass all atr using the obj with: counter={counter}
+            */
+            counter={counter}
+            onDelete={this.handleDelete}
+          />
         ))}
       </div>
     );

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Counter extends Component {
   state = {
     // count: 0, //old name when getting value
-    value: this.props.value, //new name geting the value from counters.render.value
+    value: this.props.counter.value, //new name geting the value from counters.render.value
     tags: ["tag1", "tag2", "tag3"]
   };
 
@@ -42,6 +42,13 @@ class Counter extends Component {
         >
           Increment
         </button>
+        <button
+          onClick={() => this.props.onDelete(this.props.counter.id)}
+          className="btn btn-danger btn-sm m-2"
+        >
+          Delete
+        </button>
+        <br />
       </React.Fragment>
     );
   }
